@@ -48,4 +48,37 @@ public class QuizRepository
         
         return quizTableResult;
     }
+    
+    public async Task<QuizSession?> FindEmptyQuizSessionAsync(Guid quizTypeId, Guid userId)
+    {
+        return await _context.QuizSessions
+            .Where(qs => qs.QuestionTypeId == quizTypeId && qs.UserId == userId)
+            .FirstOrDefaultAsync();
+    }
+    
+    public async Task<List<Question>> GetQuizQuestionsAsync(Guid quizTypeId)
+    {
+        return await _context.Questions
+            .Where(q => q.QuestionTypeId == quizTypeId)
+            .ToListAsync();
+    }
+    
+    public async Task<QuizSession> AddQuizSessionAsync(Guid quizTypeId, Guid userId, List<Guid> questionSequence, int duration, int attempts)
+    {
+        var quizSession = new QuizSession
+        {
+            QuestionSequence = questionSequence,
+            QuestionTypeId = quizTypeId,
+            UserId = userId,
+            Duration = duration,
+            Attempts = attempts,
+            // QuestionAnswer =
+            DateCreated = DateTime.UtcNow
+        };
+
+        _context.QuizSessions.Add(quizSession);
+        await _context.SaveChangesAsync();
+
+        return quizSession;
+    }
 }

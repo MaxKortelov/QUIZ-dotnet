@@ -46,6 +46,7 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<RegisterDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<VerifyEmailDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<LoadUserValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<GenerateQuizSessionValidator>();
 
 // Register repositories
 builder.Services.AddScoped<QuizRepository>();

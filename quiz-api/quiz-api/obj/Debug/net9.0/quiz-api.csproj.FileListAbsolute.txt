@@ -39,3 +39,4 @@
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/FluentValidation.dll
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/FluentValidation.AspNetCore.dll
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/FluentValidation.DependencyInjectionExtensions.dll
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.sourcelink.json

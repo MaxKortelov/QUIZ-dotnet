@@ -12,10 +12,10 @@ public class QuizSession
     public List<Guid> QuestionSequence { get; set; }
 
     [Column("question_answer", TypeName = "jsonb")]
-    public Dictionary<string, object> QuestionAnswer { get; set; }
+    public string QuestionAnswer { get; set; } = "{}";
 
     [Column("date_created")]
-    public DateTime? DateCreated { get; set; } = DateTime.UtcNow;
+    public DateTime DateCreated { get; set; } = DateTime.UtcNow;
     
     [Column("date_started")]
     public DateTime? DateStarted { get; set; }

@@ -23,12 +23,15 @@ namespace quiz_api.Controllers
     
     [Route("quiz/generate")]
     [ApiController]
-    public class QuizSessionGenerate : ControllerBase
+    public class QuizSessionGenerate(IUserService userService, IQuizService quizService) : ControllerBase
     {
         [HttpPost]
-        public IEnumerable<string> GenerateQuizSession()
+        public async Task<ActionResult<QuizSessionRecord>> GenerateQuizSession([FromBody] GenerateQuizSessionDto generateQuizSessionDto)
         {
-            return new List<string> { "Jan", "Anna", "Piotr" };
+            var user = await userService.LoadUser(generateQuizSessionDto.Email);
+            QuizSessionDto quizSession = await quizService.GenerateQuizSession(generateQuizSessionDto.QuizTypeId, user.Uuid);
+
+            return new QuizSessionRecord(quizSession);
         }
     }
     
