@@ -5,7 +5,7 @@ import {Content} from 'antd/es/layout/layout';
 import {Header} from './Header';
 
 import './Layout.scss';
-import {SideMenu} from "./SideMenu/SideMenu";
+import {SideMenu} from "./SideMenu";
 import {SideMenuItemsEnum} from "./SideMenu/items";
 
 type Props = {

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { URL_CHANGE_PASSWORD, URL_HOME } from 'utils/constants/clientUrl';
+import { URL_HOME } from 'utils/constants/clientUrl';
 import { MenuItem } from "utils/types/menuItems";
 
 export const getItems = (logOut: () => void) => {
@@ -15,15 +15,6 @@ export const getItems = (logOut: () => void) => {
       navigate(URL_HOME.path());
     },
   };
-  const changePassword = {
-    label: 'Change password',
-    className: 'headerMenuItem',
-    id: 'changePassword',
-    key: 'changePassword',
-    onClick: () => {
-      navigate(URL_CHANGE_PASSWORD.path());
-    },
-  };
   const logOutItem = {
     label: 'Log out',
     className: 'headerMenuItem',
@@ -34,5 +25,5 @@ export const getItems = (logOut: () => void) => {
     },
   };
 
-  return [dashboard, changePassword, logOutItem] as MenuItem[];
+  return [dashboard, logOutItem] as MenuItem[];
 };
