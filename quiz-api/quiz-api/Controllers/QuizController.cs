@@ -1,0 +1,78 @@
+using Microsoft.AspNetCore.Mvc;
+
+namespace quiz_api.Controllers
+{
+    [Route("quiz/list")]
+    [ApiController]
+    public class QuizList : ControllerBase
+    {
+        private readonly IQuizService _quizService;
+        
+        public QuizList(IQuizService quizService)
+        {
+            _quizService = quizService;
+        }
+        
+        [HttpGet]
+        public async Task<ActionResult<List<QuestionType>>> GetQuizList()
+        {
+            var types = await _quizService.GetQuizTypesAsync();
+            return Ok(new { quizSessions = types });
+        }
+    }
+    
+    [Route("quiz/generate")]
+    [ApiController]
+    public class QuizSessionGenerate : ControllerBase
+    {
+        [HttpPost]
+        public IEnumerable<string> GenerateQuizSession()
+        {
+            return new List<string> { "Jan", "Anna", "Piotr" };
+        }
+    }
+    
+    [Route("quiz/start")]
+    [ApiController]
+    public class QuizSessionStart : ControllerBase
+    {
+        [HttpPost]
+        public IEnumerable<string> StartQuizSession()
+        {
+            return new List<string> { "Jan", "Anna", "Piotr" };
+        }
+    }
+    
+    [Route("question/save")]
+    [ApiController]
+    public class QuestionSave : ControllerBase
+    {
+        [HttpPost]
+        public IEnumerable<string> SaveQuestion()
+        {
+            return new List<string> { "Jan", "Anna", "Piotr" };
+        }
+    }
+    
+    [Route("question/next")]
+    [ApiController]
+    public class QuestionNext : ControllerBase
+    {
+        [HttpPost]
+        public IEnumerable<string> NextQuestion()
+        {
+            return new List<string> { "Jan", "Anna", "Piotr" };
+        }
+    }
+    
+    [Route("submit")]
+    [ApiController]
+    public class QuizSubmit : ControllerBase
+    {
+        [HttpPost]
+        public IEnumerable<string> SubmitQuiz()
+        {
+            return new List<string> { "Jan", "Anna", "Piotr" };
+        }
+    }
+}

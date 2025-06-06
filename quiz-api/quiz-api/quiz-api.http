@@ -1,0 +1,6 @@
+@quiz_api_HostAddress = http://localhost:3001
+
+GET {{quiz_api_HostAddress}}/quiz/list
+Accept: application/json
+
+###
