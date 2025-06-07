@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { URL_NOT_FOUND } from "utils/constants/clientUrl";
 import { useAppDispatch, useAppSelector } from "utils/hooks/useAppSelector";
@@ -20,6 +20,8 @@ export const Quiz = () => {
     const quizIsLoading = useAppSelector(getQuizIsLoading)
     const quizQuestion = useAppSelector(getQuizQuestion)
 
+    const [timer, setTimer] = useState<number>()
+
     useEffect(() => {
         !quiz?.quizSession?.quizSessionId &&
             dispatch(getQuizAction({
@@ -34,6 +36,10 @@ export const Quiz = () => {
             email: currentUser?.email
         }))
     }, [quiz]);
+
+    useEffect(() => {
+        if(!timer) setTimer(quizQuestion?.dateEnded?.getTime())
+    }, [quizQuestion]);
 
     const onTimeOut = async () => {
         await dispatch(getQuizResultAction({
@@ -55,7 +61,7 @@ export const Quiz = () => {
                     Timer:
                     <Statistic.Countdown
                         className="quizPageTimer"
-                        value={quizQuestion?.dateEnded?.getTime()}
+                        value={timer}
                         format="mm:ss"
                         onFinish={onTimeOut}
                     />
