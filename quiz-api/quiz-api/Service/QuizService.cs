@@ -8,6 +8,7 @@ public interface IQuizService
     Task<QuizQustionWithAnswersDto> FindNextQuizQuestionAsync(Guid quizSessionId, Guid userId);
     Task AddQuizQuestionAnswerAsync(SaveQuizQuestionDto saveQuizSessionDto, Guid userId);
     Task<QuizSession> GetQuizSessionAsync(SaveQuizQuestionDto saveQuizSessionDto, Guid userId);
+    Task<SubmitQuizSessionResultResponseDto> SubmitQuiz(SubmitQuizSessionDto submitQuizSessionDto, UserDataDto user);
 }
 
 public class QuizService : IQuizService
@@ -29,7 +30,6 @@ public class QuizService : IQuizService
     public async Task<QuizSessionDto?> GenerateQuizSession(Guid quizTypeId, Guid userId)
     {
         var emptyQuizSession = await _quizRepository.FindEmptyQuizSessionAsync(quizTypeId, userId);
-        Console.WriteLine(emptyQuizSession?.ToString());
         if (emptyQuizSession != null)
         {
             return new QuizSessionDto(emptyQuizSession);
@@ -100,5 +100,16 @@ public class QuizService : IQuizService
     public async Task<QuizSession> GetQuizSessionAsync(SaveQuizQuestionDto saveQuizSessionDto, Guid userId)
     {
         return await _quizRepository.GetQuizSessionAsync(saveQuizSessionDto.QuizSessionId, userId);
+    }
+
+    public async Task<SubmitQuizSessionResultResponseDto> SubmitQuiz(SubmitQuizSessionDto submitQuizSessionDto, UserDataDto user)
+    {
+        var quizSessionResult =
+            await _quizRepository.SaveAndCountQuizResultAsync(submitQuizSessionDto.QuizSessionId, user.Uuid);
+
+        await _quizRepository.UpdateUserQuizTableResultsAsync(user.Uuid, submitQuizSessionDto.QuizSessionId,
+            quizSessionResult.correctAnswersCount);
+        
+        return new SubmitQuizSessionResultResponseDto(submitQuizSessionDto.QuizSessionId, quizSessionResult.resultInPercentage);
     }
 }

@@ -35,6 +35,12 @@ public class StartQuizSessionDto
     public required Guid QuizSessionId { get; set; }
 }
 
+public class SubmitQuizSessionDto
+{
+    public required string Email { get; set; }
+    public required Guid QuizSessionId { get; set; }
+}
+
 public class QuizDataDto
 {
     public QuizQustionWithAnswersDto Question { get; set; }
@@ -80,3 +86,5 @@ public class SaveQuizQuestionDto
     public required Guid QuestionId { get; set; }
     public required Guid AnswerId { get; set; }
 }
+
+public record SubmitQuizSessionResultResponseDto(Guid QuizSessionId, string Result);

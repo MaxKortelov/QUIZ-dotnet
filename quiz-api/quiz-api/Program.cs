@@ -49,6 +49,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<LoadUserValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<GenerateQuizSessionValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<StartQuizSessionValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<SaveQuizQuestionValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<SubmitQuizSessionValidator>();
 
 // Register repositories
 builder.Services.AddScoped<QuizRepository>();

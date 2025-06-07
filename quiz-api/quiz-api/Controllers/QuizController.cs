@@ -84,12 +84,15 @@ namespace quiz_api.Controllers
     
     [Route("quiz/submit")]
     [ApiController]
-    public class QuizSubmit : ControllerBase
+    public class QuizSubmit(IUserService userService, IQuizService quizService) : ControllerBase
     {
         [HttpPost]
-        public IEnumerable<string> SubmitQuiz()
+        public async Task<ActionResult<SubmitQuizSessionResultResponseDto>> SubmitQuiz([FromBody] SubmitQuizSessionDto submitQuizSessionDto)
         {
-            return new List<string> { "Jan", "Anna", "Piotr" };
+            var user = await userService.LoadUser(submitQuizSessionDto.Email);
+            var result = await quizService.SubmitQuiz(submitQuizSessionDto, user);
+
+            return StatusCode(200, result);
         }
     }
 }

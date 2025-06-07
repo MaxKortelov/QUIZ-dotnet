@@ -53,7 +53,7 @@ public class QuizRepository
     public async Task<QuizSession?> FindEmptyQuizSessionAsync(Guid quizTypeId, Guid userId)
     {
         return await _context.QuizSessions
-            .Where(qs => qs.QuestionTypeId == quizTypeId && qs.UserId == userId)
+            .Where(qs => qs.QuestionTypeId == quizTypeId && qs.UserId == userId && qs.DateEnded == null)
             .FirstOrDefaultAsync();
     }
     
@@ -154,5 +154,86 @@ public class QuizRepository
         quizSession.QuestionAnswer = JsonSerializer.Serialize(questionAnswerDict);
 
         await _context.SaveChangesAsync();
+    }
+    
+    private async Task<List<Question>> GetQuestionsByTypeIdAsync(Guid questionTypeId)
+    {
+        return await _context.Questions
+            .Where(q => q.QuestionTypeId == questionTypeId)
+            .ToListAsync();
+    }
+    
+    public async Task<(int correctAnswersCount, string resultInPercentage)> SaveAndCountQuizResultAsync(Guid quizSessionId, Guid userId)
+    {
+        var quizSession = await GetQuizSessionAsync(quizSessionId, userId);
+
+        if (quizSession == null)
+        {
+            throw new NotFoundException("Quiz session not found.");
+        }
+
+        var questions = await GetQuestionsByTypeIdAsync(quizSession.QuestionTypeId.Value);
+
+        var questionAnswerDict = string.IsNullOrWhiteSpace(quizSession.QuestionAnswer)
+            ? new Dictionary<string, string>()
+            : JsonSerializer.Deserialize<Dictionary<string, string>>(quizSession.QuestionAnswer)!;
+
+        var answersCheckList = questions.Select(q =>
+            questionAnswerDict.TryGetValue(q.Uuid.ToString(), out var answerId) && answerId == q.CorrectAnswers.FirstOrDefault()
+        ).ToList();
+
+        var correctAnswersCount = answersCheckList.Count(c => c);
+        var result = answersCheckList.Count > 0 
+            ? 100.0 * correctAnswersCount / answersCheckList.Count 
+            : 0;
+
+        quizSession.Result = (int)result;
+        quizSession.DateEnded = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+
+        return (correctAnswersCount, $"{result}%");
+    }
+
+    public async Task UpdateUserQuizTableResultsAsync(Guid userId, Guid quizSessionId,
+        int quizSessionCorrectAnswersCount)
+    {
+        var currentQuizTableResults = await GetUserQuizTableResultAsync(userId);
+        var oldQuizSession = currentQuizTableResults.BestQuizSessionId != null
+            ? await GetQuizSessionAsync(currentQuizTableResults.BestQuizSessionId.Value, userId)
+            : null;
+        var newQuizSession = await GetQuizSessionAsync(quizSessionId, userId);
+        
+        var bestQuizSession = CalculateBestQuizSession(oldQuizSession, newQuizSession);
+
+        currentQuizTableResults.BestQuizSessionId = bestQuizSession.Uuid;
+        currentQuizTableResults.QuizAmountTaken += 1;
+        currentQuizTableResults.CorrectAnswers += quizSessionCorrectAnswersCount;
+        currentQuizTableResults.BestQuizSession = bestQuizSession;
+        
+        await _context.SaveChangesAsync();
+    }
+    
+    private QuizSession CalculateBestQuizSession(QuizSession? oldQuizSession, QuizSession? newQuizSession)
+    {
+        if (oldQuizSession == null && newQuizSession != null)
+        {
+            return newQuizSession;
+        }
+
+        if (newQuizSession == null && oldQuizSession != null)
+        {
+            return oldQuizSession;
+        }
+
+        if (oldQuizSession != null && newQuizSession != null)
+        {
+            var bestTimeOldQuizSession = (oldQuizSession.DateEnded - oldQuizSession.DateStarted)?.TotalSeconds ?? double.MaxValue;
+            var bestTimeNewQuizSession = (newQuizSession.DateEnded - newQuizSession.DateStarted)?.TotalSeconds ?? double.MaxValue;
+
+            return bestTimeOldQuizSession < bestTimeNewQuizSession ? oldQuizSession : newQuizSession;
+        }
+
+        throw new Exception("calculateBestQuizSession - Quiz session wasn't found");
     }
 }
