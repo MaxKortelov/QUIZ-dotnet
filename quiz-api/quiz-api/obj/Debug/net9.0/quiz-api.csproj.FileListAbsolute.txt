@@ -6,8 +6,16 @@
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/quiz-api.runtimeconfig.json
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/quiz-api.dll
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/quiz-api.pdb
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/FluentValidation.dll
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/FluentValidation.AspNetCore.dll
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/FluentValidation.DependencyInjectionExtensions.dll
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Microsoft.AspNetCore.OpenApi.dll
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.dll
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Relational.dll
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Microsoft.OpenApi.dll
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Npgsql.dll
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.csproj.AssemblyReference.cache
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.GeneratedMSBuildEditorConfig.editorconfig
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.AssemblyInfoInputs.cache
@@ -15,6 +23,7 @@
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.csproj.CoreCompileInputs.cache
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.MvcApplicationPartsAssemblyInfo.cs
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.MvcApplicationPartsAssemblyInfo.cache
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.sourcelink.json
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/scopedcss/bundle/quiz-api.styles.css
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/staticwebassets.build.json
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/staticwebassets.development.json
@@ -31,12 +40,3 @@
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.pdb
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.genruntimeconfig.cache
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/ref/quiz-api.dll
-/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.dll
-/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Abstractions.dll
-/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Relational.dll
-/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Npgsql.dll
-/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
-/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/FluentValidation.dll
-/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/FluentValidation.AspNetCore.dll
-/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/FluentValidation.DependencyInjectionExtensions.dll
-/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/obj/Debug/net9.0/quiz-api.sourcelink.json
