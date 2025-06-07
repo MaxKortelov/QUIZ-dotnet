@@ -28,3 +28,47 @@ public class QuizSessionDto
 }
 
 public record QuizSessionRecord(QuizSessionDto QuizSession) {}
+
+public class StartQuizSessionDto
+{
+    public required string Email { get; set; }
+    public required Guid QuizSessionId { get; set; }
+}
+
+public class QuizDataDto
+{
+    public QuizQustionWithAnswersDto Question { get; set; }
+    public DateTime DateStarted { get; set; }
+    public DateTime DateEnded { get; set; }
+    public int CurrentQuestionCount { get; set; }
+    public int QuestionsAmount { get; set; }
+
+    public QuizDataDto(QuizQustionWithAnswersDto question, QuizSession quizSession)
+    {
+        Question = question;
+        DateStarted = quizSession.DateStarted ?? DateTime.UtcNow;
+        DateEnded = quizSession.DateEnded ?? DateTime.UtcNow;
+        CurrentQuestionCount = quizSession.QuestionSequence.FindIndex(q => q == question.QuestionId) + 1;
+        QuestionsAmount = quizSession.QuestionSequence.Count;
+    }
+}
+
+public record QuizAnswerDto(Guid Id, string Text) {}
+
+public record QuizQustionWithAnswersDto
+{
+    public Guid QuestionId { get; init; }
+    public string Question { get; init; }
+    public List<QuizAnswerDto> Answers { get; init; }
+    public string QuizType { get; init; }
+
+    public QuizQustionWithAnswersDto(Question question, string quizType)
+    {
+        QuestionId = question.Uuid;
+        Question = question.QuestionText;
+        Answers = question.Answers
+            .Select(a => new QuizAnswerDto(a.Uuid, a.AnswerText))
+            .ToList();
+        QuizType = quizType;
+    }
+}

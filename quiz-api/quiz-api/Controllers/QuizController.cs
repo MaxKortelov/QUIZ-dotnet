@@ -31,18 +31,21 @@ namespace quiz_api.Controllers
             var user = await userService.LoadUser(generateQuizSessionDto.Email);
             QuizSessionDto quizSession = await quizService.GenerateQuizSession(generateQuizSessionDto.QuizTypeId, user.Uuid);
 
-            return new QuizSessionRecord(quizSession);
+            return StatusCode(201, new QuizSessionRecord(quizSession));
         }
     }
     
     [Route("quiz/start")]
     [ApiController]
-    public class QuizSessionStart : ControllerBase
+    public class QuizSessionStart(IUserService userService, IQuizService quizService) : ControllerBase
     {
         [HttpPost]
-        public IEnumerable<string> StartQuizSession()
+        public async Task<ActionResult<QuizDataDto>> StartQuizSession([FromBody] StartQuizSessionDto startQuizSessionDto)
         {
-            return new List<string> { "Jan", "Anna", "Piotr" };
+            var user = await userService.LoadUser(startQuizSessionDto.Email);
+            var quizData = await quizService.InitiateQuizSessionAsync(startQuizSessionDto.QuizSessionId, user.Uuid);
+
+            return StatusCode(200, quizData);
         }
     }
     

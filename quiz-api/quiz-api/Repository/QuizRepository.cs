@@ -72,7 +72,6 @@ public class QuizRepository
             UserId = userId,
             Duration = duration,
             Attempts = attempts,
-            // QuestionAnswer =
             DateCreated = DateTime.UtcNow
         };
 
@@ -80,5 +79,62 @@ public class QuizRepository
         await _context.SaveChangesAsync();
 
         return quizSession;
+    }
+    
+    public async Task<QuizSession> GetQuizSessionAsync(Guid quizSessionId, Guid userId)
+    {
+        var quiz = await _context.QuizSessions
+            .FirstOrDefaultAsync(q => q.Uuid == quizSessionId && q.UserId == userId);
+
+        if (quiz == null)
+        {
+            throw new NotFoundException("Quiz session not found.");
+        }
+
+        return quiz;
+    }
+    
+    public async Task StartQuizSessionAsync(Guid quizSessionId, Guid userId)
+    {
+        var quizSession = await GetQuizSessionAsync(quizSessionId, userId);
+        
+        if (quizSession == null)
+            throw new NotFoundException("Quiz session not found.");
+
+        if (quizSession.Attempts - quizSession.AttemptsUsed <= 0)
+            throw new BadRequestException("All attempts are used");
+
+        quizSession.DateStarted = DateTime.UtcNow;
+        quizSession.DateEnded = DateTime.UtcNow.AddMinutes(quizSession.Duration);
+        quizSession.AttemptsUsed += 1;
+
+        await _context.SaveChangesAsync();
+    }
+    
+    public async Task<QuestionType> GetQuizTypeByIdAsync(Guid questionTypeId)
+    {
+        var questionType = await _context.QuestionTypes
+            .FirstOrDefaultAsync(q => q.Uuid == questionTypeId);
+
+        if (questionType == null)
+        {
+            throw new NotFoundException("QuestionType not found.");
+        }
+
+        return questionType;
+    }
+    
+    public async Task<Question> GetQuizQuestionAsync(Guid questionId)
+    {
+        var question = await _context.Questions
+            .Include(q => q.Answers) // eager load answers
+            .FirstOrDefaultAsync(q => q.Uuid == questionId);
+
+        if (question == null)
+        {
+            throw new NotFoundException("Question not found.");
+        }
+
+        return question;
     }
 }
