@@ -38,7 +38,10 @@ public class QuizRepository
     
     public async Task<QuizTableResult> GetUserQuizTableResultAsync(Guid userId)
     {
-        var quizTableResult = await _context.QuizTableResults.FirstOrDefaultAsync(u => u.UserId == userId);
+        var quizTableResult = await _context.QuizTableResults
+            .Include(qtr => qtr.BestQuizSession)
+            .FirstOrDefaultAsync(u => u.UserId == userId);
+            
 
         if (quizTableResult == null)
         {
@@ -209,7 +212,6 @@ public class QuizRepository
         currentQuizTableResults.BestQuizSessionId = bestQuizSession.Uuid;
         currentQuizTableResults.QuizAmountTaken += 1;
         currentQuizTableResults.CorrectAnswers += quizSessionCorrectAnswersCount;
-        currentQuizTableResults.BestQuizSession = bestQuizSession;
         
         await _context.SaveChangesAsync();
     }
