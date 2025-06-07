@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 
 public class QuizRepository
@@ -127,7 +128,7 @@ public class QuizRepository
     public async Task<Question> GetQuizQuestionAsync(Guid questionId)
     {
         var question = await _context.Questions
-            .Include(q => q.Answers) // eager load answers
+            .Include(q => q.Answers)
             .FirstOrDefaultAsync(q => q.Uuid == questionId);
 
         if (question == null)
@@ -136,5 +137,22 @@ public class QuizRepository
         }
 
         return question;
+    }
+
+    public async Task AddQuestionAnswerAsync(SaveQuizQuestionDto saveQuizSessionDto, Guid userId)
+    {
+        var quizSession = await GetQuizSessionAsync(saveQuizSessionDto.QuizSessionId, userId);
+        if (quizSession == null)
+            throw new NotFoundException("Quiz session not found.");
+
+        var questionAnswerDict = string.IsNullOrWhiteSpace(quizSession.QuestionAnswer)
+            ? new Dictionary<Guid, Guid>()
+            : JsonSerializer.Deserialize<Dictionary<Guid, Guid>>(quizSession.QuestionAnswer)!;
+
+        questionAnswerDict[saveQuizSessionDto.QuestionId] = saveQuizSessionDto.AnswerId;
+
+        quizSession.QuestionAnswer = JsonSerializer.Serialize(questionAnswerDict);
+
+        await _context.SaveChangesAsync();
     }
 }

@@ -72,3 +72,11 @@ public record QuizQustionWithAnswersDto
         QuizType = quizType;
     }
 }
+
+public class SaveQuizQuestionDto
+{
+    public required string Email { get; set; }
+    public required Guid QuizSessionId { get; set; }
+    public required Guid QuestionId { get; set; }
+    public required Guid AnswerId { get; set; }
+}

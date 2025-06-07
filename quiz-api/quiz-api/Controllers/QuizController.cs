@@ -49,29 +49,40 @@ namespace quiz_api.Controllers
         }
     }
     
-    [Route("question/save")]
+    [Route("quiz/question/save")]
     [ApiController]
-    public class QuestionSave : ControllerBase
+    public class QuestionSave(IUserService userService, IQuizService quizService) : ControllerBase
     {
         [HttpPost]
-        public IEnumerable<string> SaveQuestion()
+        public async Task<ResponseSuccess> SaveQuestion([FromBody] SaveQuizQuestionDto saveQuizSessionDto)
         {
-            return new List<string> { "Jan", "Anna", "Piotr" };
+            var user = await userService.LoadUser(saveQuizSessionDto.Email);
+            
+            await quizService.AddQuizQuestionAnswerAsync(saveQuizSessionDto, user.Uuid);
+
+            return new ResponseSuccess("Answer is saved successfully");
         }
     }
     
-    [Route("question/next")]
+    [Route("quiz/question/next")]
     [ApiController]
-    public class QuestionNext : ControllerBase
+    public class QuestionNext(IUserService userService, IQuizService quizService) : ControllerBase
     {
         [HttpPost]
-        public IEnumerable<string> NextQuestion()
+        public async Task<ActionResult<QuizDataDto>> NextQuestion([FromBody] SaveQuizQuestionDto saveQuizSessionDto)
         {
-            return new List<string> { "Jan", "Anna", "Piotr" };
+            var user = await userService.LoadUser(saveQuizSessionDto.Email);
+            
+            await quizService.AddQuizQuestionAnswerAsync(saveQuizSessionDto, user.Uuid);
+
+            var question = await quizService.FindNextQuizQuestionAsync(saveQuizSessionDto.QuizSessionId, user.Uuid);
+            var quizSession =  await quizService.GetQuizSessionAsync(saveQuizSessionDto, user.Uuid);
+            
+            return StatusCode(200, new QuizDataDto(question, quizSession));
         }
     }
     
-    [Route("submit")]
+    [Route("quiz/submit")]
     [ApiController]
     public class QuizSubmit : ControllerBase
     {

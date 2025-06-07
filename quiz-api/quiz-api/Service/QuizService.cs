@@ -5,6 +5,9 @@ public interface IQuizService
     Task<List<QuestionTypeDto>> GetQuizTypesAsync();
     Task<QuizSessionDto> GenerateQuizSession(Guid quizTypeId, Guid userId);
     Task<QuizDataDto> InitiateQuizSessionAsync(Guid quizSessionId, Guid userId);
+    Task<QuizQustionWithAnswersDto> FindNextQuizQuestionAsync(Guid quizSessionId, Guid userId);
+    Task AddQuizQuestionAnswerAsync(SaveQuizQuestionDto saveQuizSessionDto, Guid userId);
+    Task<QuizSession> GetQuizSessionAsync(SaveQuizQuestionDto saveQuizSessionDto, Guid userId);
 }
 
 public class QuizService : IQuizService
@@ -87,5 +90,15 @@ public class QuizService : IQuizService
         }
 
         return new QuizDataDto(question, quizSession);
+    }
+
+    public async Task AddQuizQuestionAnswerAsync(SaveQuizQuestionDto saveQuizSessionDto, Guid userId)
+    {
+        await _quizRepository.AddQuestionAnswerAsync(saveQuizSessionDto, userId);
+    }
+    
+    public async Task<QuizSession> GetQuizSessionAsync(SaveQuizQuestionDto saveQuizSessionDto, Guid userId)
+    {
+        return await _quizRepository.GetQuizSessionAsync(saveQuizSessionDto.QuizSessionId, userId);
     }
 }
