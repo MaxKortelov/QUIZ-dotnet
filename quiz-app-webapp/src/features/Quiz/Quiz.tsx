@@ -6,7 +6,7 @@ import { Spin, Statistic } from "antd";
 import { QuizQuestion } from "./components/QuizQuestion";
 import { getQuizAction, getQuizResultAction, startQuizAction } from "store/quiz/actions";
 import { getCurrentUser } from "store/user/selectors";
-import { getQuiz, getQuizIsLoading, getQuizQuestion } from "store/quiz/selectors";
+import { getQuiz, getQuizIsLoading } from "store/quiz/selectors";
 
 import './Quiz.scss';
 
@@ -18,9 +18,15 @@ export const Quiz = () => {
     const currentUser = useAppSelector(getCurrentUser)
     const quiz = useAppSelector(getQuiz)
     const quizIsLoading = useAppSelector(getQuizIsLoading)
-    const quizQuestion = useAppSelector(getQuizQuestion)
 
     const [timer, setTimer] = useState<number>()
+
+    useEffect(() => {
+        const now = new Date();
+        const plusMinutes = new Date(now.getTime() + quiz?.quizSession?.quizDuration * 60 * 1000);
+
+        setTimer(plusMinutes.getTime())
+    }, [quiz]);
 
     useEffect(() => {
         !quiz?.quizSession?.quizSessionId &&
@@ -36,10 +42,6 @@ export const Quiz = () => {
             email: currentUser?.email
         }))
     }, [quiz]);
-
-    useEffect(() => {
-        if(!timer) setTimer(quizQuestion?.dateEnded?.getTime())
-    }, [quizQuestion]);
 
     const onTimeOut = async () => {
         await dispatch(getQuizResultAction({
