@@ -14,6 +14,5 @@ public class QuestionType
     [Column("description")]
     public string Description { get; set; }
 
-    public ICollection<Question> Questions { get; set; }
     public ICollection<QuizSession> QuizSessions { get; set; }
 }

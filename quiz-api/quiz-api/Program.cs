@@ -60,6 +60,7 @@ builder.Services.AddScoped<IQuizService, QuizService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAddQuizService, AddQuizService>();
 builder.Services.AddSingleton<CryptoService>();
 builder.Services.AddSingleton<DateService>();
 builder.Services.AddSingleton<EnvVars>();
@@ -80,5 +81,14 @@ app.UseCors("LocalhostPolicy");
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var addQuizService = services.GetRequiredService<IAddQuizService>();
+
+    await addQuizService.AddQuizzes(); // Example method
+}
 
 app.Run();

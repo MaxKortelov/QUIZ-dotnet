@@ -20,6 +20,57 @@ public class QuizRepository
             })
             .ToListAsync();
     }
+
+    public QuestionType AddQuestionType(string questionType)
+    {
+        var newQuestionType = new QuestionType
+        {
+            Uuid = Guid.NewGuid(),
+            Description = questionType
+        };
+        
+        _context.QuestionTypes.Add(newQuestionType);
+        
+        _context.SaveChanges();
+
+        return newQuestionType;
+    }
+    
+    public Question AddQuestion(NewQuestion question, QuestionType questionType)
+    {
+        Console.WriteLine(JsonSerializer.Serialize(question));
+        Console.WriteLine(JsonSerializer.Serialize(questionType));
+        
+        var newQuestion = new Question
+        {
+            Uuid = Guid.NewGuid(),
+            QuestionText = question.question,
+            CorrectAnswers = new List<string> { question.answerId },
+            QuestionTypeId = questionType.Uuid,
+        };
+        
+        _context.Questions.Add(newQuestion);
+        
+        _context.SaveChanges();
+
+        return newQuestion;
+    }
+    
+    public Answer AddAnswer(NewAnswer answer, Question question)
+    {
+        var newAnswer = new Answer
+        {
+            Uuid = Guid.NewGuid(),
+            AnswerText = answer.text,
+            QuestionId = question.Uuid,
+        };
+        
+        _context.Answers.Add(newAnswer);
+        
+        _context.SaveChanges();
+
+        return newAnswer;
+    }
     
     public async Task<QuizTableResult> CreateUserQuizTableResultsAsync(Guid userId)
     {

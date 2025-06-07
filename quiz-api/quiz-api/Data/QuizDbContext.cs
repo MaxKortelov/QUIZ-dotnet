@@ -43,9 +43,7 @@ public class QuizDbContext : DbContext
 
         // Configure other relationships with Fluent API as needed
         modelBuilder.Entity<Question>()
-            .HasOne(q => q.QuestionType)
-            .WithMany(t => t.Questions)
-            .HasForeignKey(q => q.QuestionTypeId);
+            .HasOne(q => q.QuestionType);
 
         modelBuilder.Entity<Answer>()
             .HasOne(a => a.Question)
