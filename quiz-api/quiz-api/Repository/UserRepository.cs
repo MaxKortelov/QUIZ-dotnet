@@ -1,6 +1,16 @@
 using Microsoft.EntityFrameworkCore;
+using quiz_api.Models;
 
-public class UserRepository
+
+public interface IUserRepository
+{
+    Task<User> FindByEmailAsync(string email);
+    Task<User> AddUserAsync(RegisterDto registerData);
+    Task<string> AddVerifyEmailTokenAsync(string email);
+    Task VerifyUserByToken(string email);
+
+}
+public class UserRepository : IUserRepository
 {
     private readonly QuizDbContext _context;
     private readonly CryptoService _cryptoService;

@@ -23,4 +23,13 @@
       <Folder Include="obj\Debug\net9.0\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="quiz\company_policy.json" />
+      <_ContentIncludedByDefault Remove="quiz\cybersecurity.json" />
+      <_ContentIncludedByDefault Remove="quiz\english_language.json" />
+      <_ContentIncludedByDefault Remove="quiz\team_communication.json" />
+      <_ContentIncludedByDefault Remove="quiz\workplace_motivation.json" />
+      <_ContentIncludedByDefault Remove="quiz\workplace_safety.json" />
+    </ItemGroup>
+
 </Project>

@@ -1,5 +1,26 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using quiz_api.Models;
+
+public interface IQuizRepository
+{
+    Task<List<QuestionTypeDto>> GetQuestionTypeListAsync();
+    QuestionType AddQuestionType(string questionType);
+    Question AddQuestion(NewQuestion question, QuestionType questionType);
+    Answer AddAnswer(NewAnswer answer, Question question);
+    Task<QuizTableResult> CreateUserQuizTableResultsAsync(Guid userId);
+    Task<QuizTableResult> GetUserQuizTableResultAsync(Guid userId);
+    Task<QuizSession?> FindEmptyQuizSessionAsync(Guid quizTypeId, Guid userId);
+    Task<List<Question>> GetQuizQuestionsAsync(Guid quizTypeId);
+    Task<QuizSession> AddQuizSessionAsync(Guid quizTypeId, Guid userId, List<Guid> questionSequence, int duration, int attempts);
+    Task<QuizSession> GetQuizSessionAsync(Guid quizSessionId, Guid userId);
+    Task StartQuizSessionAsync(Guid quizSessionId, Guid userId);
+    Task<QuestionType> GetQuizTypeByIdAsync(Guid questionTypeId);
+    Task<Question> GetQuizQuestionAsync(Guid questionId);
+    Task AddQuestionAnswerAsync(SaveQuizQuestionDto saveQuizSessionDto, Guid userId);
+    Task<(int correctAnswersCount, string resultInPercentage)> SaveAndCountQuizResultAsync(Guid quizSessionId, Guid userId);
+    Task UpdateUserQuizTableResultsAsync(Guid userId, Guid quizSessionId, int quizSessionCorrectAnswersCount);
+}
 
 public class QuizRepository
 {

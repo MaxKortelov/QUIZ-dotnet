@@ -22,7 +22,7 @@ services:
       - 5432
 
   backend:
-    build: ./../quiz-app-api
+    build: ./../quiz-api/quiz-api
     container_name: backend
     ports:
       - "3001:3001"

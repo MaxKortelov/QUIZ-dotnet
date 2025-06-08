@@ -1,3 +1,5 @@
+using quiz_api.Models;
+
 public class UserDto
 {
     public Guid Uuid { get; set; }

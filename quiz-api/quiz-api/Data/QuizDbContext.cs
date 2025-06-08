@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using quiz_api.Models;
 
 public class QuizDbContext : DbContext
 {

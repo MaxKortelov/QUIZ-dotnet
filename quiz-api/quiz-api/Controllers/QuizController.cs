@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using quiz_api.Service;
 
 namespace quiz_api.Controllers
 {
