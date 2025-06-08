@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MCyQZLygA7g=",
+  "dgSpecHash": "CJzODq83rQM=",
   "success": true,
   "projectFilePath": "/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/quiz-api.csproj",
   "expectedPackageFiles": [
@@ -23,6 +23,7 @@
     "/Users/max/.nuget/packages/microsoft.entityframeworkcore.analyzers/9.0.5/microsoft.entityframeworkcore.analyzers.9.0.5.nupkg.sha512",
     "/Users/max/.nuget/packages/microsoft.entityframeworkcore.design/9.0.5/microsoft.entityframeworkcore.design.9.0.5.nupkg.sha512",
     "/Users/max/.nuget/packages/microsoft.entityframeworkcore.relational/9.0.5/microsoft.entityframeworkcore.relational.9.0.5.nupkg.sha512",
+    "/Users/max/.nuget/packages/microsoft.entityframeworkcore.tools/8.0.4/microsoft.entityframeworkcore.tools.8.0.4.nupkg.sha512",
     "/Users/max/.nuget/packages/microsoft.extensions.caching.abstractions/9.0.5/microsoft.extensions.caching.abstractions.9.0.5.nupkg.sha512",
     "/Users/max/.nuget/packages/microsoft.extensions.caching.memory/9.0.5/microsoft.extensions.caching.memory.9.0.5.nupkg.sha512",
     "/Users/max/.nuget/packages/microsoft.extensions.configuration.abstractions/9.0.5/microsoft.extensions.configuration.abstractions.9.0.5.nupkg.sha512",

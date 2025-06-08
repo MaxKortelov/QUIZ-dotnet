@@ -26,45 +26,13 @@ Then open browser on http://localhost:3000
 
 From project root:
 ```
-cd ./quiz-app-api
-npm ci
-npm run migrate
-npm run dev
-
+cd ./quiz-api/quiz-api
+dotnet restore
+dotnet build
+dotnet run
 ```
 
 Then open browser on http://localhost:3001
-
-RESTFUL API documentation on http://localhost:3001/docs
-
-### To run backend integration tests:
-
-#### Locally (MacOS):
-
-From project root:
-```
-cd ./quiz-app-api/
-npm ci
-npm run test:integration
-```
-
-#### In Docker container:
-
-From project root:
-
-MacOS | Windows
-```
-cd ./quiz-app-api/tests/integration
-chmod u+x start_integration_tests_docker.sh
-./start_integration_tests_docker.sh
-```
-
-Linux
-```
-cd ./quiz-app-api/tests/integration
-chmod u+x start_integration_tests_docker.sh
-start_integration_tests_docker.sh
-```
 
 ### To run backend unit tests:
 
@@ -76,9 +44,8 @@ start_integration_tests_docker.sh
 
 From project root:
 ```
-cd ./quiz-app-api/
-npm ci
-npm run test:unit
+cd ./quiz-api/QuizApi.Tests
+dotnet test
 ```
 
 _____

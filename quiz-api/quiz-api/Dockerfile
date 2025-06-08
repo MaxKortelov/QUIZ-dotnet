@@ -6,16 +6,6 @@ COPY . ./
 
 RUN dotnet restore
 
-RUN dotnet build -c Release --no-restore
+RUN dotnet build
 
-RUN dotnet ef database update --no-build
-
-RUN dotnet publish -c Release -o out --no-restore
-
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
-
-WORKDIR /app
-
-COPY --from=build /app/out .
-
-ENTRYPOINT ["dotnet", "quiz-api.dll"]
+CMD ["dotnet", "ef", "database", "update","&&","dotnet", "run"]
