@@ -1,4 +1,5 @@
 using System.Text.Json;
+using quiz_api.Service;
 
 public interface IAddQuizService
 {
@@ -8,10 +9,10 @@ public interface IAddQuizService
 public class AddQuizService : IAddQuizService
 {
     
-    private readonly QuizRepository _quizRepository;
+    private readonly IQuizRepository _quizRepository;
     private readonly EnvVars _envVars;
 
-    public AddQuizService(QuizRepository quizRepository, EnvVars envVars)
+    public AddQuizService(IQuizRepository quizRepository, EnvVars envVars)
     {
         _quizRepository = quizRepository;
         _envVars = envVars;

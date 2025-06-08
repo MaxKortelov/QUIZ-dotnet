@@ -1,3 +1,5 @@
+using quiz_api.Service;
+
 public interface IAuthService
 {
     Task<UserDto> LoginAsync(LoginDto login);
@@ -6,9 +8,9 @@ public interface IAuthService
 }
 
 public class AuthService(
-    UserRepository userRepository,
+    IUserRepository userRepository,
     IEmailService emailService,
-    QuizRepository quizRepository,
+    IQuizRepository quizRepository,
     EnvVars envVars)
     : IAuthService
 {

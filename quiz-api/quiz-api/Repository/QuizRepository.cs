@@ -22,7 +22,7 @@ public interface IQuizRepository
     Task UpdateUserQuizTableResultsAsync(Guid userId, Guid quizSessionId, int quizSessionCorrectAnswersCount);
 }
 
-public class QuizRepository
+public class QuizRepository : IQuizRepository
 {
     private readonly QuizDbContext _context;
 

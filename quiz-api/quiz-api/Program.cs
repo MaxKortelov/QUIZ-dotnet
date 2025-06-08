@@ -53,8 +53,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<SaveQuizQuestionValidator>(
 builder.Services.AddValidatorsFromAssemblyContaining<SubmitQuizSessionValidator>();
 
 // Register repositories
-builder.Services.AddScoped<QuizRepository>();
-builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<IQuizRepository, QuizRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Register services
 builder.Services.AddScoped<IQuizService, QuizService>();
@@ -63,7 +63,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAddQuizService, AddQuizService>();
 builder.Services.AddSingleton<CryptoService>();
-builder.Services.AddSingleton<DateService>();
+builder.Services.AddSingleton<IDateService, DateService>();
 builder.Services.AddSingleton<EnvVars>();
 
 var app = builder.Build();

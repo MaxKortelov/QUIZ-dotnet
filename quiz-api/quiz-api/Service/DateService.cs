@@ -1,4 +1,5 @@
 using System;
+using quiz_api.Service;
 
 namespace quiz_api.Service
 {
