@@ -139,3 +139,14 @@
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/tr/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 /Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/appsettings.Development.json
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/appsettings.json
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/Assets/quiz/company_policy.json
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/Assets/quiz/cybersecurity.json
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/Assets/quiz/english_language.json
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/Assets/quiz/team_communication.json
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/Assets/quiz/workplace_motivation.json
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/Assets/quiz/workplace_safety.json
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/quiz-api.deps.json
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/quiz-api.runtimeconfig.json
+/Users/max/WebstormProjects/dotnet-quiz-app/quiz-api/quiz-api/bin/Debug/net9.0/out/quiz-api.staticwebassets.endpoints.json

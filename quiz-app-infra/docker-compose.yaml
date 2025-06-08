@@ -10,26 +10,33 @@ services:
       POSTGRES_PASSWORD: root
       POSTGRES_USER: root
       POSTGRES_DB: quiz
-#      TZ: Factory
-#      PGTZ: Factory
     volumes:
-      - quiz-db:/~var/db
+      - quiz-db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
       - database
-    expose:
-      - 5432
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U root -d quiz" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   backend:
     build: ./../quiz-api/quiz-api
     container_name: backend
     ports:
       - "3001:3001"
-    depends_on: ["db"]
+    depends_on:
+      db:
+        condition: service_healthy
     networks:
       - database
     restart: always
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=quiz;Username=root;Password=root
+    expose:
+      - 3001
 
   webapp:
     build:
